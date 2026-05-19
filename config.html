@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-fixed-dim": "#bcc9c6",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container-low": "#eff4ff",
+                        "surface-bright": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#d8e5e2",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-container": "#6b7775",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#3d4947",
+                        "on-background": "#0b1c30",
+                        "primary-container": "#008378",
+                        "on-error": "#ffffff",
+                        "outline": "#6d7a77",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00201d",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "inverse-primary": "#6bd8cb",
+                        "surface-tint": "#006a61",
+                        "secondary-fixed": "#dae2fd",
+                        "secondary-container": "#dae2fd",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary": "#525e5c",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-fixed": "#89f5e7",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#f4fffc",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#3d4947",
+                        "primary": "#00685f",
+                        "on-tertiary-fixed": "#121e1c",
+                        "on-primary-fixed-variant": "#005049",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-container": "#f3fffc",
+                        "outline-variant": "#bcc9c6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "md": "24px",
+                        "sm": "16px",
+                        "lg": "32px",
+                        "xs": "8px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "label-sm": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <nav
+        class="bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-margin-desktop py-1 max-w-full sticky top-0 z-50">
+        <div class="flex items-center gap-lg">
+            <span class="font-headline-md text-headline-md font-bold text-primary">Carômetro</span>
+            <div class="hidden md:flex items-center gap-md">
+            </div>
+        </div>
+        <div class="flex items-center gap-md">
+            <button
+                class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">admin_panel_settings</button>
+            <div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+                <img alt="Empresa responsável" class="w-full h-full object-cover"
+                    data-alt="Empresa responsável."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE9QWIyBOhCKreeYVrUURe0etzwKiSssamInMr6qh2lEbTUr5IPfS0MPlkR6nSASxJwc0b28V37mVSrmOCTD13XIXlYRLuoiBMBVONR3BuSlZLIvj47uDbvIoJLsRiCCiScRaUL6hmwOHu2svn37W1LndThAi1XqWIIkbfrl-LKgwXrFSAISRvT7mJAr9fDOAqK5B9UqvkGKvamvZW0Yu7vx8Cnmkuhy-JRdToiKGxiWM3LIlwTgsrJo0DHs1PUMKvoddPOoRA2Tyv">
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-grow px-margin-mobile md:px-margin-desktop py-lg max-w-[1440px] mx-auto w-full">
+        <!-- Welcome Banner -->
+        <header class="mb-md">
+            <h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Configurações da Organização</h1>
+            <div
+                class="flex items-start gap-sm bg-primary-container/10 p-md rounded-xl border border-primary-container/20">
+                <span class="material-symbols-outlined text-primary">info</span>
+                <p class="font-body-md text-body-md text-on-surface-variant">Comece configurando os dados da sua
+                    organização para habilitar o registro de membros. Estas informações serão usadas em todo o sistema.
+                </p>
+            </div>
+        </header>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+            <!-- Left Column: Dados da Empresa -->
+            <section class="lg:col-span-7 space-y-lg">
+                <div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+                    <div class="flex items-center gap-sm mb-lg">
+                        <span
+                            class="material-symbols-outlined text-primary p-2 bg-primary-fixed rounded-lg">business</span>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface">Dados da Empresa</h2>
+                    </div>
+                    <form class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        <div class="md:col-span-2">
+                            <label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Nome da
+                                Empresa</label>
+                            <input
+                                class="w-full px-sm py-2 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md"
+                                placeholder="Ex: Quiim corp" type="text">
+                        </div>
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant mb-xs">Telefone</label>
+                            <input
+                                class="w-full px-sm rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md py-2"
+                                placeholder="+55 (11) 0000-0000" type="tel">
+                        </div>
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface-variant mb-xs">E-mail
+                                Corporativo</label>
+                            <input
+                                class="w-full px-sm rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md py-2"
+                                placeholder="contato@empresa.com" type="email">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Endereço
+                                Completo</label>
+                            <textarea
+                                class="w-full px-sm rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md resize-none py-2"
+                                placeholder="Rua, Número, Bairro, Cidade - Estado" rows="3"></textarea>
+                        </div>
+                        <!-- <div class="md:col-span-2 pt-sm">
+                            <button
+                                class="flex items-center justify-center gap-sm bg-primary text-on-primary px-xl rounded-lg font-label-md text-label-md hover:brightness-110 active:scale-95 transition-all shadow-md py-2"
+                                type="submit">
+                                <span class="material-symbols-outlined"
+                                    style="font-variation-settings: &quot;FILL&quot; 1;">save</span>
+                                Salvar Alterações
+                            </button>
+                        </div> -->
+                    </form>
+                </div>
+                <!-- Visual Brand Identity Section (Bento grid style addition) -->
+                <div class="flex flex-col md:flex-row gap-md items-stretch">
+                    <div
+                        class="flex-1 bg-surface-container p-lg rounded-xl border border-outline-variant flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Logo da Empresa</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Para personalização
+                                visual do sistema e relatórios.</p>
+                        </div>
+                        <div
+                            class="border-2 border-dashed border-primary/40 rounded-xl p-lg flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+                            <span
+                                class="material-symbols-outlined text-primary text-4xl mb-sm group-hover:scale-110 transition-transform">photo_camera</span>
+                            <p class="font-label-md text-label-md text-primary">Upload da Logo</p>
+                            <p class="text-[10px] font-body-sm text-on-surface-variant mt-xs">PNG ou SVG (Mx. 2MB)</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 relative overflow-hidden rounded-xl border border-outline-variant h-auto">
+                        <img alt="Office Environment" class="absolute inset-0 w-full h-full object-cover"
+                            data-alt="A wide-angle shot of a bright, modern open-plan office with clean white desks, ergonomic teal chairs, and glass walls. Soft natural light streams in from large windows, creating a peaceful and productive corporate atmosphere. The colors are predominantly white and soft grey with teal accents, maintaining a professional and high-end aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh-ilItfcH3jyEUs_3qzc55j9N2xpcMC8Jnv2GZVUd5jAfxZSiKj--NW614x8kJAxemKOcXdDgHj3fFaJEBtSvLJPGqLkd_gl5jOCjSRr4r0gnK7kU4DiT5kIxAQuIlWvkss8qblVLVaCwZFR7zul8bXfzAap0KCvTvfyzNVRRjGUEfFQkZw-pU-Rbn00yCfSjO22qQtBUBHXVhKifdq4zubL4Evu9KQa7EGBovkD6aNBItewJnTvfIwOgYUmEggIet8Q6K2NL75gk">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent flex items-end p-md">
+                            <p class="text-white font-label-md text-label-md">Ambiente Corporativo Configurado</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Right Column: Estrutura Organizacional -->
+            <section class="lg:col-span-5 space-y-lg">
+                <!-- Cadastro de Estrutura -->
+                <div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+                    <div class="flex items-center gap-sm mb-lg">
+                        <span
+                            class="material-symbols-outlined text-primary p-2 bg-primary-fixed rounded-lg">account_tree</span>
+                        <h2 class="font-headline-sm text-headline-sm text-on-surface">Estrutura Organizacional</h2>
+                    </div>
+                    <div class="bg-surface-container-low p-md rounded-lg mb-lg border border-outline-variant">
+                        <h3 class="font-label-md text-label-md text-on-surface mb-md">Novo Cadastro</h3>
+                        <div class="space-y-md">
+                            <div>
+                                <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">Tipo de
+                                    Registro</label>
+                                <select
+                                    class="w-full px-sm py-2 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md bg-white">
+                                    <option>Departamento</option>
+                                    <option>Setor</option>
+                                    <option>Cargo</option>
+                                    <option>Sala / Unidade</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label
+                                    class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">Nome</label>
+                                <div class="flex gap-xs">
+                                    <input
+                                        class="flex-grow px-sm py-2 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md"
+                                        placeholder="Ex: Marketing Digital" type="text">
+                                    <button
+                                        class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg material-symbols-outlined hover:brightness-110 active:scale-95 transition-all">add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- List of Items -->
+                    <div class="space-y-sm">
+                        <div class="flex items-center justify-between py-2 border-b border-outline-variant group">
+                            <div class="flex items-center gap-md">
+                                <div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm text-primary">groups</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Recursos Humanos</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Departamento</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-primary transition-colors material-symbols-outlined text-[20px]">edit</button>
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-error transition-colors material-symbols-outlined text-[20px]">delete</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-b border-outline-variant group">
+                            <div class="flex items-center gap-md">
+                                <div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm text-primary">badge</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Desenvolvedor Senior</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Cargo</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-primary transition-colors material-symbols-outlined text-[20px]">edit</button>
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-error transition-colors material-symbols-outlined text-[20px]">delete</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-b border-outline-variant group">
+                            <div class="flex items-center gap-md">
+                                <div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm text-primary">meeting_room</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Sala de Reunião Alpha</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Sala</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-primary transition-colors material-symbols-outlined text-[20px]">edit</button>
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-error transition-colors material-symbols-outlined text-[20px]">delete</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-b border-outline-variant group">
+                            <div class="flex items-center gap-md">
+                                <div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm text-primary">hub</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Vendas Internas</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Setor</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-primary transition-colors material-symbols-outlined text-[20px]">edit</button>
+                                <button
+                                    class="p-2 text-on-surface-variant hover:text-error transition-colors material-symbols-outlined text-[20px]">delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full mt-lg py-2 text-primary font-label-md text-label-md border border-primary/20 rounded-lg hover:bg-primary-container/5 transition-colors">Visualizar
+                        Estrutura Completa</button>
+                </div>
+                <!-- Progress Tracker -->
+
+            </section>
+        </div>
+        <div class="md:col-span-2 pt-sm">
+            <button
+                class="flex items-center justify-center gap-sm bg-primary text-on-primary px-xl rounded-lg font-label-md text-label-md hover:brightness-110 active:scale-95 transition-all shadow-md py-2"
+                type="submit">
+                <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">save</span>
+                Salvar Alterações
+            </button>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-surface-container-lowest border-t border-outline-variant flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop gap-md mt-auto sticky bottom-0 z-50 py-4 shadow-\[0_-4px_6px_-1px_rgba(0,0,0,0.1)\]">
+        <div class="flex flex-col gap-xs items-center md:items-start">
+            <span class="font-label-md text-label-md font-bold text-on-surface-variant">Carômetro © 2026 - Sistema de identificação. <a href="quiim.com.br"><strong>Quiim</strong></a></span>
+        </div>
+        <div class="flex gap-lg items-center">
+            <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-primary transition-colors"
+                href="#"><strong>LGPD (Lei Geral de Proteção de Dados Pessoais - Lei nº 13.709)</strong></a>
+            <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-primary transition-colors"
+                href="#">Contato</a>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

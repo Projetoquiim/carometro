@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Carômetro - Gestão de Membros</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#f3fffc",
+                        "tertiary": "#525e5c",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#f4fffc",
+                        "error": "#ba1a1a",
+                        "primary": "#00685f",
+                        "tertiary-fixed-dim": "#bcc9c6",
+                        "primary-container": "#008378",
+                        "on-primary-fixed-variant": "#005049",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#121e1c",
+                        "on-primary-fixed": "#00201d",
+                        "on-surface": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-background": "#0b1c30",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#6bd8cb",
+                        "surface-bright": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "secondary-fixed": "#dae2fd",
+                        "secondary-container": "#dae2fd",
+                        "secondary": "#565e74",
+                        "inverse-surface": "#213145",
+                        "outline": "#6d7a77",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#89f5e7",
+                        "surface-tint": "#006a61",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#6b7775",
+                        "on-surface-variant": "#3d4947",
+                        "tertiary-fixed": "#d8e5e2",
+                        "on-tertiary-fixed-variant": "#3d4947",
+                        "surface-container-high": "#dce9ff",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "xl": "48px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .photo-preview-overlay {
+            background: linear-gradient(0deg, rgba(0, 104, 95, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .tab-active {
+            @apply text-primary border-b-2 border-primary font-bold;
+        }
+
+        .tab-inactive {
+            @apply text-on-surface-variant font-medium hover:bg-surface-container-high;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopAppBar -->
+    <header
+        class="bg-surface dark:bg-background border-b border-outline-variant dark:border-outline shadow-sm fixed top-0 left-0 w-full z-50">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16">
+            <div class="flex items-center gap-xs">
+                <span class="text-headline-sm font-bold text-primary dark:text-inverse-primary">Carômetro</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-lg">
+
+                <a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">REGISTRO</a>
+
+            </nav>
+            <div class="flex items-center gap-sm relative">
+                <button
+                    class="material-symbols-outlined text-primary dark:text-inverse-primary p-2 rounded-full hover:bg-surface-container-high transition-colors">notifications</button>
+                <div class="relative">
+                    <button
+                        class="material-symbols-outlined text-primary dark:text-inverse-primary p-2 rounded-full hover:bg-surface-container-high transition-colors"
+                        id="profile-menu-button" onclick="toggleProfileMenu()">account_circle</button>
+                    <!-- Profile Dropdown Menu -->
+                    <div class="absolute right-0 mt-2 w-64 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg z-[60] overflow-hidden hidden"
+                        id="profile-dropdown">
+                        <div class="p-sm border-b border-outline-variant">
+                            <a href="config.html">Configurações</a>
+                            <!-- <p class="text-label-sm text-on-surface-variant">Configurações</p> -->
+                            <p class="text-label-md font-bold text-on-surface truncate">usuario@empresa.com.br</p>
+                        </div>
+                        <div class="p-xs">
+                            <button
+                                class="w-full flex items-center gap-sm px-sm py-2 text-error hover:bg-error-container/10 rounded-lg transition-colors text-label-md">
+                                <span class="material-symbols-outlined text-[20px]">logout</span>
+                                Sair
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="mt-16 flex-grow flex flex-col items-center justify-start py-xs px-margin-mobile">
+        <div class="w-full max-w-4xl">
+            <!-- Tab Switcher -->
+            <div class="flex border-b border-outline-variant mb-xs">
+                <button
+                    class="px-md py-sm text-label-md transition-all text-on-surface-variant font-medium hover:bg-surface-container-high"
+                    id="tab-new" onclick="switchTab('new')">Novo Cadastro</button>
+                <button
+                    class="px-md py-sm text-label-md transition-all text-primary border-b-2 border-primary font-bold"
+                    id="tab-manage" onclick="switchTab('manage')">Pesquisar</button>
+            </div>
+            <!-- NEW REGISTRATION VIEW -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter hidden" id="view-new">
+                <section class="md:col-span-12">
+                    <h1 class="text-headline-sm md:text-headline-md font-headline-md text-on-surface mb-1">Novo Cadastro
+                    </h1>
+                </section>
+                <div
+                    class="md:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant p-sm shadow-sm">
+                    <h2 class="text-label-md font-bold text-primary mb-sm">Informações Pessoais</h2>
+                    <form class="space-y-sm">
+                        <div class="flex flex-col gap-xs">
+                            <label class="text-label-sm font-label-md text-on-surface" for="name">Nome Completo</label>
+                            <input
+                                class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                id="name" placeholder="Ex: Ana Silva" type="text">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+                            <div class="flex flex-col gap-xs">
+                                <label class="text-label-sm font-label-md text-on-surface" for="role">Departamento /
+                                    Cargo/Local</label>
+                                <select
+                                    class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                    id="role">
+                                    <option disabled="" selected="" value="">Selecione uma opção</option>
+                                    <option value="Administrativo">Administrativo</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Desenvolvimento">Desenvolvimento</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Financeiro">Financeiro</option>
+                                    <option value="Log�stica">Logstica</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Recursos Humanos">Recursos Humanos</option>
+                                    <option value="TI">TI</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="text-label-sm font-label-md text-on-surface" for="id_number">Número de
+                                    ID</label>
+                                <input
+                                    class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                    id="id_number" placeholder="000.000-X" type="text">
+                            </div>
+                        </div>
+                        <div class="pt-sm hidden md:block">
+                            <button
+                                class="bg-primary hover:bg-primary-container text-on-primary font-bold text-label-md h-10 px-lg rounded-full transition-all flex items-center justify-center gap-sm shadow-md active:scale-95"
+                                type="submit">
+                                <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+                                Cadastrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="md:col-span-5 flex flex-col gap-sm">
+                    <div
+                        class="bg-surface-container-lowest rounded-xl border border-outline-variant p-sm shadow-sm flex flex-col items-center">
+                        <h2 class="text-label-md font-bold text-primary mb-sm self-start">Foto de Perfil</h2>
+                        <div
+                            class="relative w-full aspect-square max-w-[180px] rounded-full overflow-hidden border-4 border-primary-container bg-surface-container shadow-inner mb-sm group">
+                            <img alt="Avatar Preview" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbR--XRW1YWC37k79L7K_LQLAgOKDS2U8y2-Om730kB0HkqnoSZ2xsJYJ8YvhomdmsKgvP957WjOOpaAs6bqOKlXht4xkYWkK1NYZafaCRWYH4pdx_fu9izEHtwHlJZqW69u6wjmvXaQRaUU0uY4X1YBMy-7FnQu2Lxp-2Y61rST4HCYBPbkqdE8eUQ_LYngwdfOusxFEAw0waSh1mjJTKnhlPC3uef3du8qgk0FN5IbOc6Qi4u8bJf5OcSGjYzPsi95gkKZhIhvtG">
+                            <div class="absolute inset-0 photo-preview-overlay flex items-center justify-center">
+                                <div
+                                    class="w-full h-full border-2 border-dashed border-primary/30 rounded-full animate-pulse flex items-center justify-center">
+                                    <span
+                                        class="material-symbols-outlined text-primary text-[48px] opacity-20">photo_camera</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-label-sm text-on-surface-variant text-center px-sm mb-sm">Capture ou escolha um
+                            arquivo.</p>
+                        <div class="w-full space-y-xs">
+                            <button
+                                class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary h-10 rounded-lg font-bold text-label-sm hover:bg-primary-container transition-colors shadow-sm">
+                                <span class="material-symbols-outlined text-[18px]">camera_enhance</span> Tirar Foto
+                            </button>
+                            <button
+                                class="w-full flex items-center justify-center gap-sm bg-surface text-primary border border-primary h-10 rounded-lg font-bold text-label-sm hover:bg-primary-container/10 transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">upload_file</span> Carregar Foto
+                            </button>
+                        </div>
+                    </div>
+                    <div class="md:hidden">
+                        <button
+                            class="w-full bg-primary hover:bg-primary-container text-on-primary font-bold text-body-md h-12 rounded-xl transition-all flex items-center justify-center gap-sm shadow-md"
+                            type="submit">
+                            <span class="material-symbols-outlined">how_to_reg</span> Finalizar Cadastro
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- MANAGE MEMBERS VIEW (HIDDEN INITIALLY) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter" id="view-manage">
+                <section class="md:col-span-12 mb-xs">
+                    <h1 class="text-headline-sm md:text-headline-md font-headline-md text-on-surface mb-1">Gerenciar
+                        Membros</h1>
+                    <p class="text-body-sm font-body-sm text-on-surface-variant">Pesquise, edite ou remova membros da
+                        base.</p>
+                    <!-- Search Bar -->
+                    <div class="mt-sm relative max-w-xl">
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                        <input
+                            class="w-full h-10 pl-12 pr-4 rounded-full border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all shadow-sm text-body-sm"
+                            placeholder="Pesquisar por nome ou ID..." type="text">
+                    </div>
+                </section>
+                <div
+                    class="md:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant p-sm shadow-sm">
+                    <div class="flex justify-between items-center mb-sm">
+                        <h2 class="text-label-md font-bold text-primary">Editar Informações</h2>
+                        <span
+                            class="text-[10px] px-2 py-0.5 bg-surface-container-high rounded text-on-surface-variant">ID
+                            123.456-7</span>
+                    </div>
+                    <form class="space-y-sm">
+                        <div class="flex flex-col gap-xs">
+                            <label class="text-label-sm font-label-md text-on-surface" for="edit-name">Nome
+                                Completo</label>
+                            <input
+                                class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                id="edit-name" type="text" value="Ricardo Santos">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+                            <div class="flex flex-col gap-xs">
+                                <label class="text-label-sm font-label-md text-on-surface" for="edit-role">Departamento
+                                    / Cargo</label>
+                                <select
+                                    class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                    id="edit-role">
+                                    <option disabled="" value="">Selecione um Departamento ou Cargo</option>
+                                    <option value="Engenharia">Engenharia</option>
+                                    <option selected="" value="Design de Produto">Design de Produto</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Recursos Humanos">Recursos Humanos</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="text-label-sm font-label-md text-on-surface" for="edit-id">Número de
+                                    ID</label>
+                                <input
+                                    class="w-full h-10 px-4 rounded-lg border border-outline focus:border-primary focus:ring-1 focus:ring-primary-container bg-surface transition-all text-body-sm"
+                                    id="edit-id" type="text" value="123.456-7">
+                            </div>
+                        </div>
+                        <div class="pt-sm flex flex-wrap gap-sm">
+                            <button
+                                class="bg-primary hover:bg-primary-container text-on-primary font-bold text-label-sm h-10 px-lg rounded-full transition-all flex items-center justify-center gap-sm shadow-md active:scale-95"
+                                type="button">
+                                <span class="material-symbols-outlined text-[18px]">save</span>
+                                Salvar
+                            </button>
+                            <button
+                                class="bg-surface text-error border border-error hover:bg-error-container/20 font-bold text-label-sm h-10 px-lg rounded-full transition-all flex items-center justify-center gap-sm active:scale-95"
+                                type="button">
+                                <span class="material-symbols-outlined text-[18px]">delete_forever</span>
+                                Excluir
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="md:col-span-5 flex flex-col gap-sm">
+                    <div
+                        class="bg-surface-container-lowest rounded-xl border border-outline-variant p-sm shadow-sm flex flex-col items-center">
+                        <h2 class="text-label-md font-bold text-primary mb-sm self-start">Foto de Perfil</h2>
+                        <div
+                            class="relative w-full aspect-square max-w-[180px] rounded-full overflow-hidden border-4 border-primary-container bg-surface-container shadow-inner mb-sm">
+                            <img alt="Avatar Preview" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbR--XRW1YWC37k79L7K_LQLAgOKDS2U8y2-Om730kB0HkqnoSZ2xsJYJ8YvhomdmsKgvP957WjOOpaAs6bqOKlXht4xkYWkK1NYZafaCRWYH4pdx_fu9izEHtwHlJZqW69u6wjmvXaQRaUU0uY4X1YBMy-7FnQu2Lxp-2Y61rST4HCYBPbkqdE8eUQ_LYngwdfOusxFEAw0waSh1mjJTKnhlPC3uef3du8qgk0FN5IbOc6Qi4u8bJf5OcSGjYzPsi95gkKZhIhvtG">
+                        </div>
+                        <div class="w-full space-y-xs">
+                            <button
+                                class="w-full flex items-center justify-center gap-sm bg-surface text-primary border border-primary h-10 rounded-lg font-bold text-label-sm hover:bg-primary-container/10 transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">edit</span> Alterar Foto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-lg">
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-low p-1 rounded-lg">
+            <span class="material-symbols-outlined">group</span>
+            <span class="text-label-sm font-label-sm">Directory</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 duration-200">
+            <span class="material-symbols-outlined"
+                style="font-variation-settings: &quot;FILL&quot; 1;">person_add</span>
+            <span class="text-label-sm font-label-sm">Register</span>
+        </div>
+        <div
+            class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-low p-1 rounded-lg">
+            <span class="material-symbols-outlined">person</span>
+            <span class="text-label-sm font-label-sm">Profile</span>
+        </div>
+    </nav>
+    <!-- Footer (Desktop Only) -->
+    <footer
+        class="hidden md:flex flex-row justify-between items-center w-full px-margin-desktop py-sm bg-surface-container-lowest border-t border-outline-variant">
+        <div class="flex items-center gap-sm">
+            <span class="text-label-sm font-bold text-on-surface">Carômetro Identity Systems</span>
+            <span class="text-label-sm text-on-surface-variant">© 2024.</span>
+        </div>
+        <div class="flex gap-lg">
+            <a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+            <a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+            <a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Admin</a>
+        </div>
+    </footer>
+    <script>
+        function toggleProfileMenu() {
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function (e) {
+            const dropdown = document.getElementById('profile-dropdown');
+            const button = document.getElementById('profile-menu-button');
+            if (dropdown && !dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        function switchTab(view) {
+            const viewNew = document.getElementById('view-new');
+            const viewManage = document.getElementById('view-manage');
+            const tabNew = document.getElementById('tab-new');
+            const tabManage = document.getElementById('tab-manage');
+
+            if (view === 'new') {
+                viewNew.classList.remove('hidden');
+                viewManage.classList.add('hidden');
+
+                tabNew.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                tabNew.classList.remove('text-on-surface-variant', 'font-medium', 'hover:bg-surface-container-high');
+
+                tabManage.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                tabManage.classList.add('text-on-surface-variant', 'font-medium', 'hover:bg-surface-container-high');
+            } else {
+                viewNew.classList.add('hidden');
+                viewManage.classList.remove('hidden');
+
+                tabManage.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                tabManage.classList.remove('text-on-surface-variant', 'font-medium', 'hover:bg-surface-container-high');
+
+                tabNew.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-bold');
+                tabNew.classList.add('text-on-surface-variant', 'font-medium', 'hover:bg-surface-container-high');
+            }
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

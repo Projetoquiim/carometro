@@ -1,0 +1,27 @@
+{
+  "name": "carometro",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Projetoquiim/carometro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Projetoquiim/carometro/issues"
+  },
+  "homepage": "https://github.com/Projetoquiim/carometro#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.10.0",
+    "firebase-tools": "^15.18.0"
+  }
+}

@@ -1,3 +1,12 @@
+-----------ALERTA ALERTA ALERTA ALERTA ALERTA------------------- 
+
+NÃO DEIXAR OS ARQUIVOS DE CONFIGURAÇÃO, COMO O PROJETOQUIM.JSON, 
+ .ENV, ETC... SEREM COLOCADOS NO REPOSITÓRIO. ISSO GERA UM ERRO DIFÍCIL
+ O GIT RECONHECE OS ARQUIVOS DE CONFIGURAÇÃO E VARIÁVEIS E BARRA PARA 
+ QUE OS DADOS NÃO SEJAM EXPOSTOS....
+
+-----------ALERTA ALERTA ALERTA ALERTA ALERTA-------------------
+
 1 - Criação do arquivo .gitignore para citar arquivos para não irem para o repositório
     * node_modules/
 

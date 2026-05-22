@@ -4,7 +4,7 @@
         [✔] DotEnv
         [ ] Express
         [ ] EJS
-        [ ] Firebase {firebase, firebase-admin, firebase-tools}
+        [✔] Firebase {firebase, firebase-admin, firebase-tools}
 
     ## Criação dos sites por I.A. {http://stitch.withgoogle.com/}
         [✔] Criar site (Páginas para Administração, cadastro, visualização e edição/exclusão de registros com fotos) 

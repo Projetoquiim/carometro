@@ -13,8 +13,10 @@
 
 1 - Criação do arquivo .gitignore para citar arquivos para não irem para o repositório
     * node_modules/
+    
     * .env - LEMBRAR DE RECRIÁ-LO EM CADA COMPUTADOR ONDE USAR O REPOSITÓRIO
-
+        OBS.: O DOTENV SÓ FUNCIONA COM FUNCTIONS..
+        FOI RETIRADO DO PROJETO CARÔMETRO...
 
 2 - Instalação dos pacotes
     * npm init -y
@@ -22,3 +24,5 @@
     * dotenv
         *Criar o arquivo .env para setar variáveis EM TODAS AS MÁQUINAS QUE FOR USAR....
     * firebase / firebase-tools / firebase-admin
+
+3 - Controle de acesso

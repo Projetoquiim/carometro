@@ -20,7 +20,7 @@
 
     ## Criação de projeto{Chaves, Banco de dados(firestore), estrutura de arquivos(storage)}
         [✔] Criação do ProjetoQuim no Firebase
-        [ ] Autenticação de usuário
+        [ ] Autenticação de usuário (Controle Authentication - Acesso e controle das páginas.)
         [ ] Criação do Banco de Dados/Documentos Firestore
             
 

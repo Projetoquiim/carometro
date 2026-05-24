@@ -4,15 +4,15 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { collection, getDocs, getFirestore } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-
-/* dotenv.config();*/
-/* app.use(cors());*/
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getStorage, ref, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-storage.js";
+//import { } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+//import { } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-functions.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBuUNUufC0aGs4VFZEiHvAXvpIpsvy5Dek",
     authDomain: "projetoquiim.firebaseapp.com",
-    projectId:"projetoquiim",
+    projectId: "projetoquiim",
     storageBucket: "projetoquiim.appspot.com",
     messagingSenderId: "541088523428",
     appId: "1:541088523428:web:41811dfd1e88b78d7cb231"
@@ -20,12 +20,11 @@ const firebaseConfig = {
 
 const quiimAdm = initializeApp(firebaseConfig);
 const quiimDB = getFirestore(quiimAdm);
-
-/* 
-const quiimLog = firebase.auth();
+const quiimAuth = getAuth(quiimAdm);
+const quiimStorage = getStorage(quiimAdm);
 
 export async function logar(usuario, senha) {
-    signInWithEmailAndPassword(quiimLog, usuario, senha)
+    signInWithEmailAndPassword(quiimAuth, usuario, senha)
         .then((credencial) => {
             // Usuário logado com sucesso
             const user = credencial.user;
@@ -51,9 +50,9 @@ export async function listar() {
     try {
         // Sintaxe correta para o Client SDK v9/v10
         const querySnapshot = await getDocs(collection(quiimDB, "quiimCliente"));
-        
+
         querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data().Nome}`);
+            /*console.log(`${doc.id} => ${doc.data().Nome}`);*/
             lista.push(doc.data().Nome);
         });
 
@@ -62,6 +61,31 @@ export async function listar() {
     }
     return lista;
 }
-/*
-listar();
- logar("projetoquim@gmail.com","@19Twostars"); */
+
+export async function listaArquivos() {
+    const pastaImagem = ref(quiimStorage, "/arquivos");
+    const arquivos = [];
+    await listAll(pastaImagem)
+        .then(async (res) => {
+            // 1. Listar subpastas (se houver)
+            res.prefixes.forEach((pastaRef) => {
+                console.log("Subpasta encontrada:", pastaRef.fullPath);
+            });
+            // 2. Listar arquivos e pegar suas URLs de download
+            for (const itemRef of res.items) {
+                /* console.log("Arquivo encontrado:", itemRef.name); *///SE DEIXAR ASSIM, ELE TRAZ O NOME COMPLETO
+                console.log("Arquivo encontrado:", itemRef.fullPath);
+                try {
+                    const url = await getDownloadURL(itemRef);
+                    console.log(`URL de ${itemRef.name}:`, url);
+                    arquivos.push(url);
+                } catch (error) {
+                    console.error("Erro ao obter URL do arquivo:", error);
+                }
+            }
+        })
+        .catch((error) => {
+            console.error("Erro ao listar arquivos:", error);
+        });
+    return arquivos;
+}

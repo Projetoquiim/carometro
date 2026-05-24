@@ -1,7 +1,6 @@
 # PROJETO QUIM - CARÔMETRO - lista de tarefas
 
     ## Instalação e Configuração de API's.
-        [✔] DotEnv
         [ ] Express
         [ ] EJS
         [✔] Firebase {firebase, firebase-admin, firebase-tools}
@@ -20,7 +19,7 @@
 
     ## Criação de projeto{Chaves, Banco de dados(firestore), estrutura de arquivos(storage)}
         [✔] Criação do ProjetoQuim no Firebase
-        [ ] Autenticação de usuário (Controle Authentication - Acesso e controle das páginas.)
+        [✔] Autenticação de usuário (Controle Authentication - Acesso e controle das páginas.)
         [ ] Criação do Banco de Dados/Documentos Firestore
             
 

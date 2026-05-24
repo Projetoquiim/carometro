@@ -7,7 +7,7 @@
 
 *** EXISTEM 2 TIPOS DE CONFIGURAÇÃO
     -> NO SERVIDOR - NODE.JS
-    -> NO CLIENTE/WEB - CONFIGURAÇÃO MAIS SIMPLES
+   ✔ -> NO CLIENTE/WEB - CONFIGURAÇÃO MAIS SIMPLES
     
 -----------ALERTA ALERTA ALERTA ALERTA ALERTA-------------------
 
@@ -21,8 +21,45 @@
 2 - Instalação dos pacotes
     * npm init -y
         *Alterar o package.json -> type:module 
-    * dotenv
+    
+    ❌* dotenv
         *Criar o arquivo .env para setar variáveis EM TODAS AS MÁQUINAS QUE FOR USAR....
+    
     * firebase / firebase-tools / firebase-admin
 
 3 - Controle de acesso
+        24/05 -> Criado sistema de login e tentativa de uso no LOGIN.HTML
+        LOGIN.HTML
+            * 
+
+4 - Storage 
+        REVISAR MÉTODOS DE CONTROLE DE ACESSO
+        Opção A: Acesso para testes (Apenas para desenvolvimento)Se estiver em fase de testes e quiser que qualquer pessoa possa ler ou gravar arquivos sem precisar fazer login:
+            rules_version = '2';
+            service firebase.storage {
+            match /b/{bucket}/o {
+                match /{allPaths=**} {
+                allow read, write: if true;
+                }
+            }
+            }
+        
+        Opção B: Acesso apenas para usuários autenticadosSe o seu app possui tela de login e você quer que apenas usuários logados acessem a pasta 
+            rules_version = '2';
+            service firebase.storage {
+            match /b/{bucket}/o {
+                match /arquivos/{allPaths=**} {
+                allow read, write: if request.auth != null;
+                }
+            }
+            }
+
+        Opção C: Acesso ao dono do arquivo (Privado por usuário)Se os arquivos pertencem individualmente a cada usuário e você quer que apenas o criador tenha acesso à pasta
+            rules_version = '2';
+            service firebase.storage {
+            match /b/{bucket}/o {
+                match /arquivos/{userId}/{allPaths=**} {
+                allow read, write: if request.auth != null && request.auth.uid == userId;
+                }
+            }
+            }

@@ -30,7 +30,7 @@
 3 - Controle de acesso
         24/05 -> Criado sistema de login e tentativa de uso no LOGIN.HTML
         LOGIN.HTML
-            * 
+            * Campos - ID.: email / password / logar(button) / remember(checkbox - manter conectado.) / google(button)
 
 4 - Storage 
         REVISAR MÉTODOS DE CONTROLE DE ACESSO

@@ -24,11 +24,18 @@ const quiimAuth = getAuth(quiimAdm);
 const quiimStorage = getStorage(quiimAdm);
 
 export async function logar(usuario, senha) {
-    signInWithEmailAndPassword(quiimAuth, usuario, senha)
+    await signInWithEmailAndPassword(quiimAuth, usuario, senha)
         .then((credencial) => {
             // Usuário logado com sucesso
             const user = credencial.user;
             console.log("Logado com sucesso:", user.email);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Logado com sucesso: " +user.email,
+                showConfirmButton: false,
+                timer: 1500
+            });
         })
         .catch((error) => {
             const codigoerro = error.code;

@@ -1,6 +1,15 @@
 import {listar,logar, listaArquivos} from "./firebase/ini.js";
 
-logar("projetoquim@gmail.com","@19Twostars");
+const usuario = document.querySelector("#email");
+const senha = document.querySelector("#password");
+const btnEntrar = document.querySelector("#entrar");
+const btnGoogle = document.querySelector("#google");
+
+btnEntrar.addEventListener("click", (e)=>{
+    logar(usuario.value, senha.value);
+    
+});
+
 
 const listagem = listar().then((lista)=>{
     console.log("Dados => ", lista);

@@ -32,15 +32,20 @@ export async function logar(usuario, senha) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Logado com sucesso: " +user.email,
+                title: "Usuário logado: " + usuario,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2500
             });
         })
         .catch((error) => {
             const codigoerro = error.code;
             const mensagemErro = error.message;
-            console.error("Erro ao logar:", mensagemErro);
+            console.error("Erro ao logar: "+mensagemErro);
+            Swal.fire({
+                icon: "error",
+                title: "Erro ao logar ❌ "+mensagemErro,
+                text: "Algo deu errado. Verifique as credenciais e tente novamente."
+            });
         });
 }
 /* 

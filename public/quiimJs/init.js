@@ -1,4 +1,5 @@
-import { listar, logar, listaArquivos } from "./firebase/ini.js";
+/* import { listar, logar, listaArquivos } from "./firebase/ini.js"; */
+import {logar} from "./firebase/ini.js";
 
 const usuario = document.querySelector("#email");
 const senha = document.querySelector("#password");
@@ -7,16 +8,9 @@ const btnGoogle = document.querySelector("#google");
 
 btnEntrar.addEventListener("click", (e) => {
     logar(usuario.value, senha.value);
-    Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Your work has been saved",
-        showConfirmButton: false,
-        timer: 1500
-    });
 });
 
-
+/* 
 const listagem = listar().then((lista) => {
     console.log("Dados => ", lista);
 }).catch((error) => {
@@ -28,5 +22,5 @@ const arquivos = listaArquivos().then((lista) => {
 }).catch((error) => {
     console.error("Erro ao listar arquivos:", error);
 });
-
+ */
 console.log("Entrou no init.js");

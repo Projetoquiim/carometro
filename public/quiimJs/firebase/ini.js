@@ -36,7 +36,7 @@ export async function logar(usuario, senha) {
                 showConfirmButton: false,
                 timer: 2500
             });
-        })
+        }) 
         .catch((error) => {
             const codigoerro = error.code;
             const mensagemErro = error.message;

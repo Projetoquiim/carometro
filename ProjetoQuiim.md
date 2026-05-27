@@ -29,3 +29,8 @@
         [✔] Acesso ao Storage para obter Arquivos bem como o caminho para os mesmos.
 
 # SITE/SISTEMA
+
+    ## LOGIN.HTML
+        [ ] Verificar "escritas/descrições" - Alterar ou NÃO - { VERIFICAR PÁGINA RENDERIZADA E OS COMENTÁRIOS NO CÓDIGO FONTE. }
+        [ ] Verificar funcionamento das opções/links da página - { "Esqueci minha senha" - "Manter conectado" - Botão de acesso por conta Google - "Ainda não tem acesso? Solicite ao administrador" }
+        [ ] Verificar links do rodapé

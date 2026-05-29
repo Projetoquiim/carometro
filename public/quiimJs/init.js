@@ -1,5 +1,5 @@
 /* import { listar, logar, listaArquivos } from "./firebase/ini.js"; */
-import {logar} from "./firebase/ini.js";
+import {logar, listar} from "./firebase/ini.js";
 
 const usuario = document.querySelector("#email");
 const senha = document.querySelector("#password");
@@ -10,13 +10,13 @@ btnEntrar.addEventListener("click", (e) => {
     logar(usuario.value, senha.value);
 });
 
-/* 
+
 const listagem = listar().then((lista) => {
     console.log("Dados => ", lista);
 }).catch((error) => {
     console.error("Erro ao listar dados:", error);
 });
-
+/* 
 const arquivos = listaArquivos().then((lista) => {
     console.log("Arquivos => ", lista);
 }).catch((error) => {

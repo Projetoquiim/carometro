@@ -2,17 +2,92 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Meu App Estático</title>
+    <title>SPA com Hash e JS Puro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
+        nav a { margin-right: 15px; text-decoration: none; color: blue; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
 </head>
 <body>
+
     <nav>
-        <button onclick="navegar('/')">Home</button>
-        <button onclick="navegar('/contato')">Contato</button>
+        <!-- Uso do '#' garante que o navegador não mude de página física -->
+        <a href="#/">Home</a>
+        <a href="#/sobre">Sobre</a>
+        <a href="#/contato">Contato</a>
     </nav>
 
-    <!-- As páginas serão injetadas aqui dentro -->
-    <div id="conteudo"></div>
+    <!-- O conteúdo dinâmico será injetado aqui -->
+    <div id="app"></div>
 
-    <script type="module" src="teste.js"></script>
+    <!-- Importa primeiro o arquivo de dados para o array ficar disponível -->
+    <script src="teste.js"></script>
+    
+    <script>
+        // 1. Função que gera a estrutura da tabela HTML a partir do array
+        function gerarTabelaContatos() {
+            let html = `
+                <h1>Página de Contatos</h1>
+                <p>Abaixo estão os dados carregados do arquivo JavaScript:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            // Loop para criar as linhas da tabela dinamicamente
+            contatos.forEach(contato => {
+                html += `
+                    <tr>
+                        <td>${contato.nome}</td>
+                        <td>${contato.idade}</td>
+                        <td>${contato.telefone}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+            return html;
+        }
+
+        // 2. Definição das rotas (funções que retornam o HTML de cada tela)
+        const rotas = {
+            "#/": () => "<h1>Página Inicial</h1><p>Bem-vindo ao sistema de rotas sem servidor!</p>",
+            "#/sobre": () => "<h1>Sobre Nós</h1><p>Esta página roda 100% no navegador, usando apenas HTML e JS puro.</p>",
+            "#/contato": () => gerarTabelaContatos() // Chama a função que monta a tabela
+        };
+
+        // 3. Gerenciador do roteamento
+        function roteador() {
+            // Obtém o hash atual da URL (ex: '#/contato'). Se estiver vazio, define '#/'
+            const path = window.location.hash || "#/";
+            
+            // Busca a função correspondente à rota ou exibe erro 404
+            const renderizarConteudo = rotas[path] || (() => "<h1>404</h1><p>Página não encontrada.</p>");
+            
+            // Injeta o HTML retornado na div principal
+            document.getElementById("app").innerHTML = renderizarConteudo();
+        }
+
+        // 4. Ouvintes de eventos do navegador
+        // Executa o roteador sempre que o hash da URL mudar
+        window.addEventListener("hashchange", roteador);
+
+        // Executa o roteador assim que a página terminar de carregar
+        window.addEventListener("load", roteador);
+    </script>
 </body>
 </html>

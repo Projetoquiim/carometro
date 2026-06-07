@@ -16,6 +16,8 @@
 
     ## Criar contas Gateway de pagamento.
         [ ] AbacatePay 🥑
+            ## - Tentando fazer cadastro - Nome do Projeto.: ProjetoQuim
+                 ### Foi criado, seguindo o exemplo do Google, faturamento.html, frontend.js e       frontend_express.js
 
     ## Hospedagem e criação de Domínio
         [✔] Registro BR {quiim.com.br}

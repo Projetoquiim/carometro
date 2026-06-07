@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Compra</title>
+</head>
+<body>
+    <h2>Preencha seus dados para pagar com PIX</h2>
+    <form id="form-pagamento">
+        <!-- Input escondido com o ID do produto que criamos no Firestore -->
+        <input type="hidden" id="produto-id" value="produto_123">
+
+        <label>Nome Completo:</label><br>
+        <input type="text" id="nome" required><br><br>
+
+        <label>E-mail:</label><br>
+        <input type="email" id="email" required><br><br>
+
+        <label>CPF:</label><br>
+        <input type="text" id="cpf" placeholder="Apenas números" required><br><br>
+
+        <button type="submit" id="btn-comprar">Pagar Agora</button>
+    </form>
+
+    <script src="frontend.js"></script>
+</body>
+</html>

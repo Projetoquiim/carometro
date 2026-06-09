@@ -74,7 +74,8 @@ Use o código com cuidado.
 
 
 *************************************************************************************************************
-exemplo completo do uso do abacate pay passo a passo de como devo fazer para vender com exemplos inclusive de banco de dados dos produtos com firebase firestorePara integrar a AbacatePay AbacatePay ao Firebase Firestore, o fluxo exige três etapas: estruturar o banco de dados de produtos, gerar o link de pagamento via API e atualizar o status do pedido em tempo real usando Webhooks para concluir a venda.1. Modelagem do Banco de Dados (Firebase Firestore)No seu painel do Firebase Console, crie duas coleções principais: produtos e pedidos.Coleção: produtosCada documento contém os dados base que serão puxados na hora da compra.Documento ID: produto_123Campos:nome: "Curso Completo de Abacate"preco: 97.00 (Número)descricao: "Aprenda a faturar vendendo abacates"ativo: true (Boolean)Coleção: pedidosArmazena a intenção de compra antes do cliente pagar.Documento ID: pedido_abc789Campos:clienteId: "usuario_456"produtoId: "produto_123"valor: 97.00status: "PENDENTE"criadoEm: Timestamp2. Passo a Passo para Gerar a VendaNo seu frontend ou backend (Node.js/Next.js), quando o usuário clicar em comprar, você deve chamar a API da AbacatePay:Autenticação: Obtenha sua chave de API no Dashboard da AbacatePay.Criar a Cobrança: Envie uma requisição POST para a API da AbacatePay.Exemplo de requisição (Body):json{
+exemplo completo do uso do abacate pay passo a passo de como devo fazer para vender com exemplos inclusive de banco de dados dos produtos com firebase firestorePara integrar a AbacatePay AbacatePay ao Firebase Firestore, o fluxo exige três etapas: estruturar o banco de dados de produtos, gerar o link de pagamento via API e atualizar o status do pedido em tempo real usando Webhooks para concluir a venda.1. Modelagem do Banco de Dados (Firebase Firestore)No seu painel do Firebase Console, crie duas coleções principais: produtos e pedidos.Coleção: produtosCada documento contém os dados base que serão puxados na hora da compra.Documento ID: produto_123Campos:nome: "Curso Completo de Abacate"preco: 97.00 (Número)descricao: "Aprenda a faturar vendendo abacates"ativo: true (Boolean)Coleção: pedidosArmazena a intenção de compra antes do cliente pagar.Documento ID: pedido_abc789Campos:clienteId: "usuario_456"produtoId: "produto_123"valor: 97.00status: "PENDENTE"criadoEm: Timestamp2. Passo a Passo para Gerar a VendaNo seu frontend ou backend (Node.js/Next.js), quando o usuário clicar em comprar, você deve chamar a API da AbacatePay:Autenticação: Obtenha sua chave de API no Dashboard da AbacatePay.Criar a Cobrança: Envie uma requisição POST para a API da AbacatePay.
+Exemplo de requisição (Body):json{
   "price": 9700,
   "currency": "BRL",
   "method": "PIX",
@@ -85,7 +86,14 @@ exemplo completo do uso do abacate pay passo a passo de como devo fazer para ven
   },
   "referenceId": "pedido_abc789" 
 }
-Use o código com cuidado.A AbacatePay retornará uma URL de pagamento (ex: https://abacatepay.com) e um ID de transação. Redirecione o cliente para essa URL.3. Atualização via Webhook (Backend Firebase)Para saber se o cliente pagou e liberar o produto, configure a URL de Webhook no painel da AbacatePay apontando para uma Firebase Cloud Function. Quando o pagamento for aprovado, a AbacatePay enviará um POST:Código de exemplo da Cloud Function:javascriptconst functions = require("firebase-functions");
+Use o código com cuidado.
+A AbacatePay retornará uma URL de pagamento (ex: https://abacatepay.com) e um ID de transação. Redirecione o cliente para essa URL.
+
+3. Atualização via Webhook (Backend Firebase)
+Para saber se o cliente pagou e liberar o produto, configure a URL de Webhook no painel da AbacatePay apontando para uma Firebase Cloud Function.
+Quando o pagamento for aprovado, a AbacatePay enviará um POST:Código de exemplo da Cloud Function:javascript
+
+const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
@@ -108,7 +116,27 @@ exports.abacateWebhook = functions.https.onRequest(async (req, res) => {
     
     return res.status(200).send("Status ignorado");
 });
-Use o código com cuidado.Se quiser seguir com essa implementação, posso te ajudar com:As regras de segurança para proteger seu banco de dados Firestore.O código frontend em React para criar a interface da loja.A criação e configuração do Firebase Project.Qual dessas opções você quer ver aprofundada agora?2 sitesEntenda Gateway de pagamentos em 5 min - AbacatepayVideo sem enrolação, Direto ao ponto, do jeito que a gente gosta. Acesse nosso site: www.abacatepay.com.br Neste vídeo, explicamos...3:14YouTube·🥑 AbacatePay - Gateway de PagamentosAbacatePay é a plataforma mais descomplicada quando o assunto é receber pagamentos! Nesse vídeo vamos nos aprofundar um pouco mais na plataforma, vou te contar um pouco de tudo que você precisa… | AbacatepayE    ORL de retorno.    l   dentro do checkout ele tem uma setinha de voltar que ele pode voltar para onde ele estava antes de cli...pt.linkedin.comVocê disse: No passo a passo para gerar a venda, pede-se para que eu crie uma requisição post para a API da AbacatePay, como devo fazer isso? Como seria o meu formulário o javascript para que seja feito o que foi pedido no passo a passo?Para fazer essa requisição com segurança, você precisa entender uma regra crucial: nunca faça requisições diretas para a API da AbacatePay usando o JavaScript do Frontend. Se você fizer isso, sua chave secreta de API ficará visível para qualquer pessoa no navegador, permitindo que roubem seus dados ou criem cobranças falsas.O fluxo correto e seguro é:O Frontend (Formulário) envia os dados do cliente para o seu Backend (uma API própria ou Firebase Function).O seu Backend recebe esses dados, cria o pedido no Firestore, faz o POST seguro para a AbacatePay e recebe o link de pagamento.O seu Backend devolve esse link para o Frontend, que redireciona o usuário.Abaixo está o exemplo prático completo utilizando HTML, JavaScript Vanilla (Frontend) e um servidor Node.js (Backend).1. O Formulário (HTML)Crie uma interface simples para o cliente preencher os dados de faturamento.html<!DOCTYPE html>
+Use o código com cuidado.
+
+Se quiser seguir com essa implementação, posso te ajudar com:As regras de segurança para proteger seu banco de dados Firestore.
+O código frontend em React para criar a interface da loja.
+A criação e configuração do Firebase Project.
+Qual dessas opções você quer ver aprofundada agora?
+
+No passo a passo para gerar a venda, pede-se para que eu crie uma requisição post para a API da AbacatePay, como devo fazer isso?
+Como seria o meu formulário o javascript para que seja feito o que foi pedido no passo a passo?
+Para fazer essa requisição com segurança, você precisa entender uma regra crucial:
+nunca faça requisições diretas para a API da AbacatePay usando o JavaScript do Frontend.
+
+###O fluxo correto e seguro é:
+O Frontend (Formulário) envia os dados do cliente para o seu Backend (uma API própria ou Firebase Function).
+O seu Backend recebe esses dados, cria o pedido no Firestore, faz o POST seguro para a AbacatePay e recebe o link de pagamento.
+O seu Backend devolve esse link para o Frontend, que redireciona o usuário.
+Abaixo está o exemplo prático completo utilizando HTML, JavaScript Vanilla (Frontend) e um servidor Node.js (Backend).
+1. O Formulário (HTML)
+    Crie uma interface simples para o cliente preencher os dados de faturamento.html
+    <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -135,7 +163,11 @@ Use o código com cuidado.Se quiser seguir com essa implementação, posso te aj
     <script src="frontend.js"></script>
 </body>
 </html>
-Use o código com cuidado.2. O Script de Envio (frontend.js)Este script escuta o envio do formulário, envia os dados para a sua rota do backend e redireciona o usuário para a AbacatePay após receber a resposta.javascriptdocument.getElementById('form-pagamento').addEventListener('submit', async (event) => {
+Use o código com cuidado.
+
+2. O Script de Envio (frontend.js)Este script escuta o envio do formulário, envia os dados para a sua rota do backend e redireciona o usuário para a AbacatePay após receber a resposta.javascript
+
+document.getElementById('form-pagamento').addEventListener('submit', async (event) => {
     event.preventDefault(); // Evita a página de recarregar
 
     const btn = document.getElementById('btn-comprar');
@@ -175,7 +207,13 @@ Use o código com cuidado.2. O Script de Envio (frontend.js)Este script escuta o
         btn.disabled = false;
     }
 });
-Use o código com cuidado.3. O Processador Seguro (Backend em Node.js)Aqui está o código do seu servidor (pode ser Express.js ou adaptado para uma Firebase Cloud Function). Ele busca o preço real do produto no Firestore para o cliente não fraudar o valor, cria o pedido e faz o POST oficial para a AbacatePay.javascriptconst express = require('express');
+Use o código com cuidado.
+
+3. O Processador Seguro (Backend em Node.js)
+Aqui está o código do seu servidor (pode ser Express.js ou adaptado para uma Firebase Cloud Function).
+Ele busca o preço real do produto no Firestore para o cliente não fraudar o valor, cria o pedido e faz o POST oficial para a AbacatePay.javascript
+
+const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
 
@@ -260,7 +298,18 @@ app.post('/api/criar-cobranca', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
-Use o código com cuidado.Se você quiser avançar, posso te mostrar:Como rodar esse código de backend diretamente nas Firebase Cloud Functions (eliminando a necessidade de manter um servidor Node.js próprio).Como testar esse fluxo localmente em ambiente de Sandbox / Testes.Como estruturar a página de obrigado que valida se o pagamento foi concluído.Como gostaria de prosseguir?Você disse: Como rodar esse código de backend diretamente nas Firebase Cloud Functions (eliminando a necessidade de manter um servidor Node.js próprio).Para migrar o código do Express para as Firebase Cloud Functions (2ª Geração), você usará o framework do Firebase para expor uma rota HTTP segura. Isso elimina a necessidade de gerenciar um servidor próprio.Aqui está o passo a passo completo para configurar o ambiente e implantar o código.1. Configurando o Ambiente das Cloud FunctionsNo terminal do seu computador, instale a ferramenta do Firebase se ainda não tiver e inicie o projeto:bash# Instala a CLI do Firebase globalmente
+Use o código com cuidado.
+Se você quiser avançar, posso te mostrar:Como rodar esse código de backend diretamente nas Firebase Cloud Functions (eliminando a necessidade de manter um servidor Node.js próprio).
+Como testar esse fluxo localmente em ambiente de Sandbox / Testes.
+Como estruturar a página de obrigado que valida se o pagamento foi concluído.
+Como gostaria de prosseguir?
+Você disse: Como rodar esse código de backend diretamente nas Firebase Cloud Functions (eliminando a necessidade de manter um servidor Node.js próprio).
+Para migrar o código do Express para as Firebase Cloud Functions (2ª Geração), você usará o framework do Firebase para expor uma rota HTTP segura.
+Isso elimina a necessidade de gerenciar um servidor próprio.
+Aqui está o passo a passo completo para configurar o ambiente e implantar o código.
+1. Configurando o Ambiente das Cloud FunctionsNo terminal do seu computador, instale a ferramenta do Firebase se ainda não tiver e inicie o projeto:bash#
+
+Instala a CLI do Firebase globalmente
 npm install -g firebase-tools
 
 # Faz login na sua conta Google vinculada ao Firebase
@@ -268,9 +317,24 @@ firebase login
 
 # Inicia o assistente de configuração no diretório do seu projeto
 firebase init functions
-Use o código com cuidado.Durante o assistente firebase init:Selecione Use an existing project e escolha o seu projeto do Firestore.Selecione JavaScript (ou TypeScript, se preferir).Responda Yes para instalar as dependências com o npm.Isso criará uma pasta chamada functions no seu projeto.2. Instalando as Dependências InternasNavegue até a pasta functions que foi criada e instale o pacote cors (necessário para o seu formulário frontend conseguir se conectar à função):bashcd functions
+Use o código com cuidado.
+Durante o assistente firebase init:Selecione
+Use an existing project e escolha o seu projeto do Firestore.
+Selecione JavaScript (ou TypeScript, se preferir).
+Responda Yes para instalar as dependências com o npm.
+Isso criará uma pasta chamada functions no seu projeto.
+
+2. Instalando as Dependências Internas
+Navegue até a pasta functions que foi criada e instale o pacote cors (necessário para o seu formulário frontend conseguir se conectar à função):bash
+cd functions
 npm install cors
-Use o código com cuidado.(Nota: O firebase-admin e o firebase-functions já vêm instalados por padrão nesta pasta).3. O Código da Cloud Function (functions/index.js)Substitua o conteúdo do arquivo functions/index.js pelo código abaixo. Ele realiza exatamente o mesmo papel do servidor Node.js anterior, mas rodando de forma 100% serverless:javascriptconst { onRequest } = require("firebase-functions/v2/https");
+Use o código com cuidado.
+(Nota: O firebase-admin e o firebase-functions já vêm instalados por padrão nesta pasta).
+
+3. O Código da Cloud Function (functions/index.js)Substitua o conteúdo do arquivo functions/index.js pelo código abaixo.
+   Ele realiza exatamente o mesmo papel do servidor Node.js anterior, mas rodando de forma 100% serverless:javascript
+
+const { onRequest } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
 const cors = require("cors")({ origin: true }); // Permite requisições de qualquer origem (frontend)
 
@@ -358,8 +422,19 @@ exports.criarCobranca = onRequest((req, res) => {
         }
     });
 });
-Use o código com cuidado.4. Como Fazer o Deploy (Publicação)Para enviar o código do seu computador para os servidores do Google Firebase, execute o seguinte comando no terminal (na raiz do projeto, fora da pasta functions):bashfirebase deploy --only functions
-Use o código com cuidado.Após o término do deploy, o terminal exibirá a URL pública gerada para a sua função. Ela seguirá este padrão:https://criarcobranca-<id-do-seu-projeto>.<regiao>.cloudfunctions.net/criarCobranca5. Atualizando o seu frontend.jsAgora, basta abrir o arquivo frontend.js que criamos no passo anterior e substituir a URL antiga do Localhost pela nova URL fornecida pelo Firebase:javascript// Substitua o 'http://localhost:3000/api/criar-cobranca' pela URL do Firebase:
+Use o código com cuidado.
+
+4. Como Fazer o Deploy (Publicação)Para enviar o código do seu computador para os servidores do Google Firebase, execute o seguinte comando no terminal (na raiz do projeto, fora da pasta functions):bash
+firebase deploy --only functions
+
+Use o código com cuidado.
+
+Após o término do deploy, o terminal exibirá a URL pública gerada para a sua função.
+Ela seguirá este padrão:https://criarcobranca-<id-do-seu-projeto>.<regiao>.cloudfunctions.net/criarCobranca
+
+5. Atualizando o seu frontend.js
+Agora, basta abrir o arquivo frontend.js que criamos no passo anterior e substituir a URL antiga do Localhost pela nova URL fornecida pelo Firebase:javascript
+// Substitua o 'http://localhost:3000/api/criar-cobranca' pela URL do Firebase:
 const resposta = await fetch('https://run.app', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

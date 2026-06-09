@@ -19,6 +19,8 @@
             ## - Tentando fazer cadastro - Nome do Projeto.: ProjetoQuim
                  ### Foi criado, seguindo o exemplo do Google, faturamento.html, frontend.js e       frontend_express.js
 
+                 09/06/2026 - EM CASA ### Foi pedido um Autenticador de chaves 2FA - Apareceu o código DM7CSDKXK5CC6F25 junto ao QRCode
+
     ## Hospedagem e criação de Domínio
         [✔] Registro BR {quiim.com.br}
 
